@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parking Info</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f8f9fa; }
+    .card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+    .label { font-weight: bold; display: inline-block; width: 100px; }
+  </style>
+</head>
+<body>
+  <div class="card" id="data">กำลังโหลดข้อมูล...</div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    fetch("https://script.google.com/macros/s/AKfycbzVtAmCBiwkFJgWnr_36UFe8iACFUSIVEQp6M2AXJRxwnJRV3itv45evOnWyAcSZZY3jg/exec?id=" + id)
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("data").innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById("data").innerHTML = "เกิดข้อผิดพลาดในการโหลดข้อมูล";
+      });
+  </script>
+</body>
+</html>
