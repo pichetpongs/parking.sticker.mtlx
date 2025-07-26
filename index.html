@@ -112,11 +112,11 @@
         }
 
         var dt = res.data;
-
+        var own = dt[0];
         infoArea01.innerHTML = `
-          ${renderInfo("ห้องชุดเลขที่", r.unit_name)}
-          ${renderInfo("ชื่อเจ้าของร่วม", r.owner_name)}
-          ${renderInfo("วันหมดอายุ", new Date(r.date_expire).toLocaleDateString('th-TH'), "expired")}
+          ${renderInfo("ห้องชุดเลขที่", own.unit_name)}
+          ${renderInfo("ชื่อเจ้าของร่วม", own.owner_name)}
+          ${renderInfo("วันหมดอายุ", new Date(own.date_expire).toLocaleDateString('th-TH'), "expired")}
         `;
 
         infoArea02.innerHTML = "";
