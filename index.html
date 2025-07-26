@@ -15,7 +15,7 @@
     }
     .container {
       max-width: 500px;
-      margin: 20px auto;
+      margin: 10px 10px;
       padding: 20px;
       background: white;
       border-radius: 12px;
@@ -70,9 +70,13 @@
     <div class="logo">
       <img src="logo.png" alt="โลโก้คอนโด" />
     </div>
-    <h1>ข้อมูลรถและเจ้าของห้อง</h1>
-    <div class="info" id="info-area">
-      <!-- Loading... -->
+    <h1>ข้อมูลเจ้าของห้อง</h1>
+    <div class="info" id="info-area01">
+       ...กำลังค้นหา...
+    </div>
+    <h1>ข้อมูลเจ้ายานพาหนะ</h1>
+    <div class="info" id="info-area02">
+       ...กำลังค้นหา...
     </div>
   </div>
 
@@ -105,15 +109,22 @@
           return;
         }
 
-        var dt = res.data
+        var dt = res.data;
+
+        infoArea01.innerHTML = `
+          ${renderInfo("ห้องชุดเลขที่", r.unit_name)}
+          ${renderInfo("ชื่อเจ้าของร่วม", r.owner_name)}
+          ${renderInfo("วันหมดอายุ", new Date(r.date_expire).toLocaleDateString('th-TH'), "expired")}
+        `;
+
         dt.forEach(function(r,idx){
-          infoArea.innerHTML = `
+          infoArea02.innerHTML = `
+          ${renderInfo("ประเภท", r.vehicle_type)}
           ${renderInfo("เลขทะเบียน", r.license_plate_no)}
           ${renderInfo("จังหวัด", r.license_plate_province)}
-          ${renderInfo("หมายเลขห้อง", r.unit_name)}
-          ${renderInfo("ชื่อเจ้าของ", r.owner_name)}
-          ${renderInfo("หมดอายุ", new Date(r.date_expire).toLocaleDateString('th-TH'), "expired")}
         `;
+
+          
         });
         
       } catch (e) {
