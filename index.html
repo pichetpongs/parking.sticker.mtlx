@@ -98,7 +98,7 @@
     const fetchData = async (id) => {
       try {
         const response = await fetch(`https://script.google.com/macros/s/AKfycbyVtPa9o1sbeRkbBjiU4HNP98h9RvO8nsDRouD8l87Qz851en8isAlxSiyv7NvwwiHGBA/exec?id=${id}`);
-        const res = await response.text();
+        const res = await response.json();
 
         if (!res || !res.status == "error") {
           showError("ไม่พบข้อมูลสำหรับ ID นี้");
