@@ -80,7 +80,6 @@
     </div>
     
     <div class="info" id="info-area02">
-       ...กำลังค้นหา...
     </div>
   </div>
 
@@ -126,7 +125,7 @@
         var vItems = "";
         dt.forEach(function(r,idx){
           vItems +=  `
-          <h2>ข้อมูลยานพาหนะ ${idx}</h2>
+          <h2>ข้อมูลยานพาหนะ ${idx+1}</h2>
           ${renderInfo("ประเภท", r.vehicle_type)}
           ${renderInfo("เลขทะเบียน", r.license_plate_no)}
           ${renderInfo("จังหวัด", r.license_plate_province)}
