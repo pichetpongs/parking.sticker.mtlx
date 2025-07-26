@@ -16,7 +16,7 @@
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
-    fetch("https://script.google.com/macros/s/AKfycbzVtAmCBiwkFJgWnr_36UFe8iACFUSIVEQp6M2AXJRxwnJRV3itv45evOnWyAcSZZY3jg/exec?id=" + id)
+    fetch("https://script.google.com/macros/s/AKfycbyVtPa9o1sbeRkbBjiU4HNP98h9RvO8nsDRouD8l87Qz851en8isAlxSiyv7NvwwiHGBA/exec?id=" + id)
       .then(res => res.text())
       .then(html => {
         document.getElementById("data").innerHTML = html;
