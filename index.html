@@ -82,7 +82,8 @@
   </div>
 
   <script>
-    const infoArea = document.getElementById('info-area');
+    const infoArea01 = document.getElementById('info-area01');
+    const infoArea02 = document.getElementById('info-area02');
 
     const renderInfo = (label, value, specialClass = '') => `
       <div class="item">
@@ -118,13 +119,16 @@
           ${renderInfo("วันหมดอายุ", new Date(r.date_expire).toLocaleDateString('th-TH'), "expired")}
         `;
 
+        infoArea02.innerHTML = "";
+        var vItems = "";
         dt.forEach(function(r,idx){
-          infoArea02.innerHTML = `
+          vItems +=  `
           ${renderInfo("ประเภท", r.vehicle_type)}
           ${renderInfo("เลขทะเบียน", r.license_plate_no)}
           ${renderInfo("จังหวัด", r.license_plate_province)}
         `;
 
+        infoArea02.innerHTML = vItems
           
         });
         
