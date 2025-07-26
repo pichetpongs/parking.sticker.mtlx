@@ -29,11 +29,14 @@
     .logo img {
       max-width: 220px;
     }
-    h1 {
+    h1,h2 {
       font-size: 20px;
       margin-bottom: 12px;
       text-align: center;
       color: #006699;
+    }
+    h2{
+      font-size: 18px;
     }
     .info {
       display: flex;
@@ -75,7 +78,7 @@
     <div class="info" id="info-area01">
        ...กำลังค้นหา...
     </div>
-    <h1>ข้อมูลเจ้ายานพาหนะ</h1>
+    
     <div class="info" id="info-area02">
        ...กำลังค้นหา...
     </div>
@@ -84,7 +87,7 @@
   <script>
     const infoArea01 = document.getElementById('info-area01');
     const infoArea02 = document.getElementById('info-area02');
-
+  
     const renderInfo = (label, value, specialClass = '') => `
       <div class="item">
         <div class="label">${label}</div>
@@ -123,6 +126,7 @@
         var vItems = "";
         dt.forEach(function(r,idx){
           vItems +=  `
+          <h2>ข้อมูลยานพาหนะ ${idx}</h2>
           ${renderInfo("ประเภท", r.vehicle_type)}
           ${renderInfo("เลขทะเบียน", r.license_plate_no)}
           ${renderInfo("จังหวัด", r.license_plate_province)}
