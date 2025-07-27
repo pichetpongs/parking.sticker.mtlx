@@ -99,7 +99,7 @@
   <script>
     const infoArea01 = document.getElementById('info-area01');
     const infoArea02 = document.getElementById('info-area02');
-    const URL_API = "https://script.google.com/macros/s/AKfycbyVtPa9o1sbeRkbBjiU4HNP98h9RvO8nsDRouD8l87Qz851en8isAlxSiyv7NvwwiHGBA/exec";
+    const URL_API = "https://script.google.com/macros/s/AKfycbyVtPa9o1sbeRkbBjiU4HNP98h9RvO8nsDRouD8l87Qz851en8isAlxSiyv7NvwwiHGBA/exec?channel=web&";
   
     const renderInfo = (label, value, specialClass = '') => {
       if (value == undefined ) return "";
@@ -149,7 +149,11 @@
     
     const fetchDataPublic = async(id) => {
       try {
-        const response = await fetch(`${URL_API}?id=${id}`);
+        const response = await fetch(`${URL_API}`,{
+          method: "POST",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify({ "action":"permit-public", "permit-qr":id })
+        });
         const res = await response.json(); 
   
         if (!res || !res.status == "error") { showError("ไม่พบข้อมูลสำหรับ ID นี้"); return; }
@@ -174,7 +178,7 @@
         const response = await fetch(`${URL_API}`,{
           method: "POST",
           headers: { "Content-Type": "text/plain" },
-          body: JSON.stringify({ id, key })
+          body: JSON.stringify({"action":"permit-private", "permit-qr":id, "user-key": key })
         });
         const res = await response.json(); 
   
