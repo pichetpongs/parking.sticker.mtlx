@@ -124,11 +124,11 @@
         //-----
         infoArea01.innerHTML = `
           <h1>ข้อมูลผู้ใช้สิทธิ์</h1>
-          ${renderInfo("รหัสสติกเกอร์", info_owner.qr_id)}
-          ${renderInfo("ห้องชุดเลขที่", info_owner.owner_unit)}
-          ${renderInfo("ชื่อเจ้าของร่วม", info_owner.owner_name)}
-          ${renderInfo("หมายเลขโทรศัพท์", info_owner.owner_phone)}
-          ${renderInfo("วันหมดอายุ", new Date(info_owner.date_expire).toLocaleDateString('th-TH'), "expired")}
+          ${renderInfo("รหัสสติกเกอร์", info_owner["permit-qr"])}
+          ${renderInfo("ห้องชุดเลขที่", info_owner["owner-unit"])}
+          ${renderInfo("ชื่อเจ้าของร่วม", info_owner["owner-name"])}
+          ${renderInfo("หมายเลขโทรศัพท์", info_owner["owner-phone")}
+          ${renderInfo("วันหมดอายุ", new Date(info_owner["date_expire"]).toLocaleDateString('th-TH'), "expired")}
           ${(is_private?"":`<button onclick="fetchDataPrivate()">ดูข้อมูลเพิ่มเติม</button>`) }
         `;
         
@@ -137,10 +137,9 @@
         data.forEach(function(r,idx){
           vItems +=  `
             <h2>ยานพาหนะ ${idx+1}</h2>
-            ${renderInfo("เลขสติกเกอร์", r.privillage_no)}
-            ${renderInfo("ประเภท", r.vehicle_type)}
-            ${renderInfo("เลขทะเบียน", r.license_plate_no)}
-            ${renderInfo("จังหวัด", r.license_plate_province)}
+            ${renderInfo("ประเภท", r["vehicle-type"])}
+            ${renderInfo("เลขทะเบียน",  r["lp-no"])}
+            ${renderInfo("จังหวัด",  r["lp-province"])}
           `;
         });
         infoArea02.innerHTML = vItems;
