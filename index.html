@@ -180,9 +180,8 @@
         
         if(key=="") return 0;
         //----- 
-
-        infoArea02.innerHTML = "...กำลังค้นหา...";
-        infoArea01.innerHTML = "";
+        infoArea01.innerHTML = "...กำลังค้นหา...";
+        infoArea02.innerHTML = "";
         
         const response = await fetch(`${URL_API}`,{
           method: "POST",
