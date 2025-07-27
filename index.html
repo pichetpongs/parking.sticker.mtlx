@@ -145,7 +145,7 @@
           
     }
     
-    const fetchDataPublic = async(id){
+    const fetchDataPublic = async(id) => {
       try {
         const response = await fetch(`${API_BASE}?id=${id}`);
         const res = await response.json(); 
@@ -160,7 +160,7 @@
       }
     }
 
-    const fetchDataPrivate = async(id){
+    const fetchDataPrivate = async(id) =>{
       try {
         const key = prompt("กรุณากรอกรหัสผ่าน:");
         //----- 
