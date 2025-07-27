@@ -173,7 +173,7 @@
         //----- 
         const response = await fetch(`${URL_API}`,{
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "text/plain" },
           body: JSON.stringify({ id, key })
         });
         const res = await response.json(); 
