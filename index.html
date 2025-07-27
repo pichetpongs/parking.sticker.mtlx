@@ -73,6 +73,9 @@
       font-weight: bold;
       margin-top: 20px;
     }
+    .card { border: 1px solid #ccc; border-radius: 12px; padding: 16px; margin-top: 20px; }
+    .hidden { display: none; }
+    button { padding: 10px 16px; border: none; background: #1976d2; color: white; border-radius: 8px; font-size: 16px; }
   </style>
 </head>
 <body>
@@ -129,6 +132,7 @@
           ${renderInfo("ห้องชุดเลขที่", own.unit_name)}
           ${renderInfo("ชื่อเจ้าของร่วม", own.owner_name)}
           ${renderInfo("วันหมดอายุ", new Date(own.date_expire).toLocaleDateString('th-TH'), "expired")}
+          <button onclick="requestSecret()">ดูข้อมูลเพิ่มเติม</button>
         `;
 
         infoArea02.innerHTML = "";
