@@ -151,8 +151,8 @@
       try {
         const response = await fetch(`${URL_API}`,{
           method: "POST",
-          headers: { "Content-Type": "text/plain" },
-          body: JSON.stringify({ "action":"permit-public", "permit-qr":id })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({"action":"permit-public", "permit-qr":id })
         });
         const res = await response.json(); 
   
@@ -177,7 +177,7 @@
         //----- 
         const response = await fetch(`${URL_API}`,{
           method: "POST",
-          headers: { "Content-Type": "text/plain" },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({"action":"permit-private", "permit-qr":id, "user-key": key })
         });
         const res = await response.json(); 
