@@ -117,7 +117,7 @@
       return urlParams.get("id");
     };
 
-    const render_info(data){
+    const render_info = (data){
        var dt = res.data;
         var info_owner = dt[0];
         //-----
@@ -127,7 +127,7 @@
           ${renderInfo("ชื่อเจ้าของร่วม", own.owner_name)}
           ${renderInfo("หมายเลขโทรศัพท์", own.owner_phone)}
           ${renderInfo("วันหมดอายุ", new Date(own.date_expire).toLocaleDateString('th-TH'), "expired")}
-          <button onclick="requestSecret()">ดูข้อมูลเพิ่มเติม</button>
+          <button onclick="fetchDataPrivate()">ดูข้อมูลเพิ่มเติม</button>
         `;
         
         infoArea02.innerHTML = "";
