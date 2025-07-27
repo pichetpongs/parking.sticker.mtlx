@@ -147,7 +147,7 @@
     
     const fetchDataPublic = async(id) => {
       try {
-        const response = await fetch(`${API_BASE}?id=${id}`);
+        const response = await fetch(`${URL_API}?id=${id}`);
         const res = await response.json(); 
   
         if (!res || !res.status == "error") { showError("ไม่พบข้อมูลสำหรับ ID นี้"); return; }
@@ -164,7 +164,7 @@
       try {
         const key = prompt("กรุณากรอกรหัสผ่าน:");
         //----- 
-        const response = await fetch(`${API_BASE}?id=${id}&key=${key}`,{
+        const response = await fetch(`${URL_API}?id=${id}&key=${key}`,{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id, pass })
