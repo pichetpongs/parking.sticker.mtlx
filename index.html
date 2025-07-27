@@ -96,7 +96,7 @@
     </div>
 
     <div class="disclaimer">
-      Parking Privillage Checker V1.0
+      Parking permit viewer v1.0
     </div>
   </div>
 
@@ -179,8 +179,6 @@
         const id  = getIdFromURL();
         
         if(key==undefined) return 0;
-        infoArea02.innerHTML = "";
-        infoArea01.innerHTML = "";
         //----- 
         const response = await fetch(`${URL_API}`,{
           method: "POST",
@@ -189,9 +187,12 @@
         });
         const res = await response.json(); 
   
-        if (!res || !res.status == "error") { showError("ไม่พบข้อมูลสำหรับ ID นี้"); return; }
+        if (!res || !res.status == "error") { showError("รหัสผ่านไม่พบในระบบ"); return; }
         if (!res || !res.status == "not-found"){  return; }
 
+        infoArea02.innerHTML = "";
+        infoArea01.innerHTML = "";
+        
         render_info(res.data,true);
         
       } catch (e) {
