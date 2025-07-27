@@ -75,15 +75,15 @@
     }
     .card { border: 1px solid #ccc; border-radius: 12px; padding: 16px; margin-top: 20px; }
     .hidden { display: none; }
-    button { padding: 10px 16px; border: none; background: #1976d2; color: white; border-radius: 8px; font-size: 16px; }
+    button { padding: 10px 16px; border: none; background: #1976d2; color: white; border-radius: 8px; font-size: 16px; cursor:pointer}
   </style>
 </head>
 <body>
   <div class="container">
     <div class="logo">
-      <img src="logo.png" alt="โลโก้คอนโด" />
+      <img src="logo.png" />
     </div>
-    <h1>ข้อมูลเจ้าของห้อง</h1>
+    
     <div class="info" id="info-area01">
        ...กำลังค้นหา...
     </div>
@@ -99,6 +99,7 @@
   <script>
     const infoArea01 = document.getElementById('info-area01');
     const infoArea02 = document.getElementById('info-area02');
+    const URL_API = "https://script.google.com/macros/s/AKfycbyVtPa9o1sbeRkbBjiU4HNP98h9RvO8nsDRouD8l87Qz851en8isAlxSiyv7NvwwiHGBA/exec";
   
     const renderInfo = (label, value, specialClass = '') => `
       <div class="item">
@@ -110,53 +111,79 @@
     const showError = (msg) => {
       infoArea01.innerHTML = `<div class="error">${msg}</div>`;
     };
-
+ 
     const getIdFromURL = () => {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get("id");
     };
 
-    const fetchData = async (id) => {
-      try {
-        const response = await fetch(`https://script.google.com/macros/s/AKfycbyVtPa9o1sbeRkbBjiU4HNP98h9RvO8nsDRouD8l87Qz851en8isAlxSiyv7NvwwiHGBA/exec?id=${id}`);
-        const res = await response.json();
-
-        if (!res || !res.status == "error") {
-          showError("ไม่พบข้อมูลสำหรับ ID นี้");
-          return;
-        }
-
-        var dt = res.data;
-        var own = dt[0];
+    const render_info(data){
+       var dt = res.data;
+        var info_owner = dt[0];
+        //-----
         infoArea01.innerHTML = `
-          ${renderInfo("ห้องชุดเลขที่", own.unit_name)}
+          <h1>ข้อมูลเจ้าของห้อง</h1>
+          ${renderInfo("ห้องชุดเลขที่", own.owner_unit)}
           ${renderInfo("ชื่อเจ้าของร่วม", own.owner_name)}
+          ${renderInfo("หมายเลขโทรศัพท์", own.owner_phone)}
           ${renderInfo("วันหมดอายุ", new Date(own.date_expire).toLocaleDateString('th-TH'), "expired")}
           <button onclick="requestSecret()">ดูข้อมูลเพิ่มเติม</button>
         `;
-
+        
         infoArea02.innerHTML = "";
         var vItems = "";
         dt.forEach(function(r,idx){
           vItems +=  `
-          <h2>ข้อมูลยานพาหนะ ${idx+1}</h2>
-          ${renderInfo("ประเภท", r.vehicle_type)}
-          ${renderInfo("เลขทะเบียน", r.license_plate_no)}
-          ${renderInfo("จังหวัด", r.license_plate_province)}
-        `;
-
+            <h2>ข้อมูลยานพาหนะ ${idx+1}</h2>
+            ${renderInfo("เลขสติกเกอร์", r.privillage_no)}
+            ${renderInfo("ประเภท", r.vehicle_type)}
+            ${renderInfo("เลขทะเบียน", r.license_plate_no)}
+            ${renderInfo("จังหวัด", r.license_plate_province)}
+          `;
+        });
         infoArea02.innerHTML = vItems
           
-        });
+    }
+    
+    const fetchDataPublic = async(id){
+      try {
+        const response = await fetch(`${API_BASE}?id=${id}`);
+        const res = await response.json(); 
+  
+        if (!res || !res.status == "error") { showError("ไม่พบข้อมูลสำหรับ ID นี้"); return; }
+        if (!res || !res.status == "not-found"){  return; }
+
+        render_info(res.data);
         
       } catch (e) {
         showError("เกิดข้อผิดพลาดในการดึงข้อมูล");
       }
-    };
+    }
+
+    const fetchDataPrivate = async(id){
+      try {
+        const key = prompt("กรุณากรอกรหัสผ่าน:");
+        //----- 
+        const response = await fetch(`${API_BASE}?id=${id}&key=${key}`,{
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id, pass })
+        });
+        const res = await response.json(); 
+  
+        if (!res || !res.status == "error") { showError("ไม่พบข้อมูลสำหรับ ID นี้"); return; }
+        if (!res || !res.status == "not-found"){  return; }
+
+        render_info(res.data);
+        
+      } catch (e) {
+        showError("เกิดข้อผิดพลาดในการดึงข้อมูล");
+      }
+    }
 
     const id = getIdFromURL();
     if (id) {
-      fetchData(id);
+      fetchDataPublic(id);
     } else {
       showError("ไม่พบ ID ใน URL");
     }
