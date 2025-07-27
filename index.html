@@ -118,31 +118,32 @@
       return urlParams.get("id");
     };
 
-    const render_info = (data) => {
+    const render_info = (data,is_private = false) => {
       
         var info_owner = data[0];
         //-----
         infoArea01.innerHTML = `
           <h1>ข้อมูลผู้ใช้สิทธิ์</h1>
+          ${renderInfo("รหัสสติกเกอร์", info_owner.qr_id)}
           ${renderInfo("ห้องชุดเลขที่", info_owner.owner_unit)}
           ${renderInfo("ชื่อเจ้าของร่วม", info_owner.owner_name)}
           ${renderInfo("หมายเลขโทรศัพท์", info_owner.owner_phone)}
           ${renderInfo("วันหมดอายุ", new Date(info_owner.date_expire).toLocaleDateString('th-TH'), "expired")}
-          <button onclick="fetchDataPrivate()">ดูข้อมูลเพิ่มเติม</button>
+          ${is_private?"":"<button onclick="fetchDataPrivate()">ดูข้อมูลเพิ่มเติม</button>" }
         `;
         
         infoArea02.innerHTML = "";
         var vItems = "";
         data.forEach(function(r,idx){
           vItems +=  `
-            <h2>ข้อมูลยานพาหนะ ${idx+1}</h2>
+            <h2>ยานพาหนะ ${idx+1}</h2>
             ${renderInfo("เลขสติกเกอร์", r.privillage_no)}
             ${renderInfo("ประเภท", r.vehicle_type)}
             ${renderInfo("เลขทะเบียน", r.license_plate_no)}
             ${renderInfo("จังหวัด", r.license_plate_province)}
           `;
         });
-        infoArea02.innerHTML = vItems
+        infoArea02.innerHTML = vItems;
           
     }
     
@@ -164,18 +165,21 @@
     const fetchDataPrivate = async(id) =>{
       try {
         const key = prompt("กรุณากรอกรหัสผ่าน:");
+        if(key==undefined) return 0;
+        infoArea02.innerHTML = "";
+        infoArea01.innerHTML = "";
         //----- 
         const response = await fetch(`${URL_API}?id=${id}&key=${key}`,{
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id, pass })
+          body: JSON.stringify({ id, key })
         });
         const res = await response.json(); 
   
         if (!res || !res.status == "error") { showError("ไม่พบข้อมูลสำหรับ ID นี้"); return; }
         if (!res || !res.status == "not-found"){  return; }
 
-        render_info(res.data);
+        render_info(res.data,true);
         
       } catch (e) {
         showError("เกิดข้อผิดพลาดในการดึงข้อมูล");
