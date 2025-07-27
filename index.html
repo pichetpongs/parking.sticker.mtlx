@@ -129,7 +129,7 @@
           ${renderInfo("ชื่อเจ้าของร่วม", info_owner.owner_name)}
           ${renderInfo("หมายเลขโทรศัพท์", info_owner.owner_phone)}
           ${renderInfo("วันหมดอายุ", new Date(info_owner.date_expire).toLocaleDateString('th-TH'), "expired")}
-          ${(is_private?"":"<button onclick="fetchDataPrivate()">ดูข้อมูลเพิ่มเติม</button>") }
+          ${(is_private?"":`<button onclick="fetchDataPrivate()">ดูข้อมูลเพิ่มเติม</button>`) }
         `;
         
         infoArea02.innerHTML = "";
