@@ -131,7 +131,7 @@
           ${renderInfo("รหัสสติกเกอร์", info_owner["permit-qr"])}
           ${renderInfo("ห้องชุดเลขที่", info_owner["owner-unit"])}
           ${renderInfo("ชื่อเจ้าของร่วม", info_owner["owner-name"])}
-          ${renderInfo("หมายเลขโทรศัพท์", info_owner["owner-phone"])}
+          ${renderInfo("หมายเลขโทรศัพท์", info_owner["owner-phone"],"phone")}
           ${renderInfo("วันหมดอายุ", new Date(info_owner["date-expire"]).toLocaleDateString('th-TH'), "expired")}
           ${(is_private?"":`<button onclick="fetchDataPrivate()">ดูข้อมูลเพิ่มเติม</button>`) }
         `;
