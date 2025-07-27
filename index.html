@@ -102,7 +102,7 @@
     const URL_API = "https://script.google.com/macros/s/AKfycbyVtPa9o1sbeRkbBjiU4HNP98h9RvO8nsDRouD8l87Qz851en8isAlxSiyv7NvwwiHGBA/exec";
   
     const renderInfo = (label, value, specialClass = '') => {
-      if(value) return` 
+      if(value!=undefined) return` 
       <div class="item">
         <div class="label">${label}</div>
         <div class="value ${specialClass}">${value}</div>
