@@ -162,14 +162,16 @@
       }
     }
 
-    const fetchDataPrivate = async(id) =>{
+    const fetchDataPrivate = async() =>{
       try {
         const key = prompt("กรุณากรอกรหัสผ่าน:");
+        const id  = getIdFromURL();
+        
         if(key==undefined) return 0;
         infoArea02.innerHTML = "";
         infoArea01.innerHTML = "";
         //----- 
-        const response = await fetch(`${URL_API}?id=${id}&key=${key}`,{
+        const response = await fetch(`${URL_API}`,{
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id, key })
