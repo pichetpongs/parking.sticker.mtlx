@@ -163,7 +163,7 @@
         });
         const res = await response.json(); 
   
-        if (!res || !res.status == "error") { showError("ไม่พบข้อมูลสำหรับสติกเกอร์นี้"); return; }
+        if (!res || !res.status == "fail") { showError("ไม่พบข้อมูลสำหรับสติกเกอร์นี้"); return; }
         if (!res || !res.status == "not-found"){  return; }
 
         render_info(res.data);
