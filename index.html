@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap" rel="stylesheet">
-  <title>ข้อมูลยานพาหนะ</title>
+  <title>ข้อมูลผู้ใช้สิทธิ์จอดยานพาหนะ</title>
   <style>
     body {
       font-family: 'Noto Sans Thai', sans-serif;
@@ -100,6 +100,9 @@
     </div>
 
     <div class="disclaimer">
+      โครงการเมโทรลักซ์ เกษตร<br>
+      39 ถนนประเสริฐมนูกิจ แขวงเสนานิคม เขตจตุจักร กรุงเทพมหานคร 10900
+      <br>
       Parking permit viewer v1.0
     </div>
   </div>
@@ -135,7 +138,7 @@
         var info_owner = data[0];
         //-----
         infoArea01.innerHTML = `
-          <h1>ข้อมูลผู้ใช้สิทธิ์</h1>
+          <h1>ข้อมูลผู้ใช้สิทธิ์จอดยานพาหนะ</h1>
           ${renderInfo("รหัสสติกเกอร์", info_owner["permit-qr"])}
           ${renderInfo("ห้องชุดเลขที่", info_owner["owner-unit"])}
           ${renderInfo("ชื่อเจ้าของร่วม", info_owner["owner-name"])}
